@@ -1,17 +1,27 @@
 import phonenumbers
 from phonenumbers import geocoder
 
-phone_number1 = phonenumbers.parse("+254769405130")
-phone_number2 = phonenumbers.parse("+918878586271")
-phone_number3 = phonenumbers.parse("+12136574429")
-phone_number4 = phonenumbers.parse("+201234567890")
-phone_number5 = phonenumbers.parse("+917294536271")
-phone_number6 = phonenumbers.parse("+254798954395")
+def get_location(phone_number: str) -> str:
+    """Parse and get the location of the phone number."""
+    parsed_number = phonenumbers.parse(phone_number)
+    location = geocoder.description_for_number(parsed_number, "en")
+    return location
 
-print("\nPhone Number Location")
-print("1.", geocoder.description_for_number(phone_number1, "en"));
-print("2.", geocoder.description_for_number(phone_number2, "en"));
-print("3.", geocoder.description_for_number(phone_number3, "en"));
-print("4.", geocoder.description_for_number(phone_number4, "en"));
-print("5.", geocoder.description_for_number(phone_number5, "en"));
-print("6.", geocoder.description_for_number(phone_number6, "en"));
+def main():
+    # List of phone numbers
+    phone_numbers = [
+        "+254769405130",
+        "+918878586271",
+        "+12136574429",
+        "+201234567890",
+        "+917294536271",
+        "+255798954395"
+    ]
+
+    print("\nPhone Number Location")
+    for i, number in enumerate(phone_numbers, start=1):
+        location = get_location(number)
+        print(f"{i}. {location}")
+
+if __name__ == "__main__":
+    main()
